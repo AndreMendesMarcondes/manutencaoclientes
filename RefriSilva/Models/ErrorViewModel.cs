@@ -1,5 +1,3 @@
-using System;
-
 namespace RefriSilva.Models
 {
     public class ErrorViewModel

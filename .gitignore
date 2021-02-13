@@ -208,6 +208,8 @@ rcf/
 AppPackages/
 BundleArtifacts/
 Package.StoreAssociation.xml
+GCredentials/
+refrisilva-2d97d-1620b855c373.json
 _pkginfo.txt
 *.appx
 *.appxbundle
