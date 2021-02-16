@@ -72,6 +72,7 @@ namespace RefriSilva
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
