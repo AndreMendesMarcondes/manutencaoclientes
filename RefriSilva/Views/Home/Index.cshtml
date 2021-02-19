@@ -1,8 +1,98 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<RefriSilva.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Clientes</h1>
+
+<p>
+    <a asp-action="Create" type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span> Adicionar Novo Cliente
+    </a>
+</p>
+<table class="table" id="tableClientes">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                <a asp-action="Services" asp-route-id="@item.Uid" type="button" class="btn btn-success">
+                    <span class="glyphicon glyphicon-wrench"></span> Serviços
+                </a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Uid" type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-eye-open"></span> Visualizar
+                </a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Uid" type="button" class="btn btn-info">
+                    <span class="glyphicon glyphicon-pencil"></span> Editar
+                </a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Uid" type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span> Apagar
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#tableClientes').DataTable({
+            language: {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            }
+        });
+    });
+</script>
+

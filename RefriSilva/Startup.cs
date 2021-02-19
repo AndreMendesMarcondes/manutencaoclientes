@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +9,8 @@ using RefriSilva.Data.Interface;
 using System;
 using System.IO;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
+using RefriSilva.Data;
 
 namespace RefriSilva
 {
@@ -30,14 +32,24 @@ namespace RefriSilva
                options.LoginPath = "/Login/Index";
            });
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromDays(10);//You can set Time   
+            });
+
             services.AddControllersWithViews()
                   .AddRazorRuntimeCompilation();
 
             AuthenticationWithGoogle(services);
 
+            services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IServicoRepository, ServicoRepository>();
 
             EnableCors(services);
+
+            services.AddDbContext<RefriSilvaContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("RefriSilvaContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +81,7 @@ namespace RefriSilva
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 

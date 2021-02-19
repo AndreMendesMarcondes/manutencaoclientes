@@ -1,0 +1,151 @@
+﻿@model IEnumerable<RefriSilva.Models.Servico>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    var cliente = (Cliente)TempData["Cliente"];
+}
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => cliente.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => cliente.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => cliente.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => cliente.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => cliente.Telefone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => cliente.Telefone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => cliente.Endereco)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => cliente.Endereco)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => cliente.Numero)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => cliente.Numero)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => cliente.Complemento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => cliente.Complemento)
+        </dd>
+    </dl>
+</div>
+
+<h4>Serviços</h4>
+<hr />
+<p>
+    <a asp-action="Create" sp-route-id="@cliente.Uid" type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span> Adicionar Novo Serviço
+    </a>
+</p>
+<table class="table" id="tableServicos">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                Criação
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                Próxima Manutenção
+            </th>
+            <th>
+                Próxima Limpeza
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @item.DataCriacao.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @item.DataProximaManutencao.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @item.DataProximaLimpeza.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-clienteUid="@item.ClienteId" asp-route-id="@item.Uid" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-eye-open"></span> Visualizar
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-clienteUid="@item.ClienteId" asp-route-id="@item.Uid" type="button" class="btn btn-info">
+                        <span class="glyphicon glyphicon-pencil"></span> Editar
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-clienteUid="@item.ClienteId" asp-route-id="@item.Uid" type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Apagar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#tableServicos').DataTable({
+            language: {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+            }
+        });
+    });
+</script>

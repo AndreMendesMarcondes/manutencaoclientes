@@ -1,0 +1,50 @@
+﻿@model RefriSilva.Models.Servico
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Servico</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataCriacao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataCriacao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataProximaManutencao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataProximaManutencao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataProximaLimpeza)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataProximaLimpeza)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-clienteUid="@Model.ClienteId"  asp-route-id="@Model.Uid" type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span> Editar
+    </a>
+    <a asp-action="Index" asp-route-clienteUid="@Model.ClienteId"  type="button" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+    </a>
+</div>
