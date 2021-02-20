@@ -1,12 +1,12 @@
 ﻿using Google.Cloud.Firestore;
-using RefriSilva.Data.Imp;
+using RefriSilva.Data.Interface;
 using RefriSilva.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace RefriSilva.Data.Interface
+namespace RefriSilva.Data.Imp
 {
     public class ClienteRepository : MainContext, IClienteRepository
     {

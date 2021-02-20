@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RefriSilva.Data.Imp
+namespace RefriSilva.Data.Interface
 {
     public interface IClienteRepository
     {

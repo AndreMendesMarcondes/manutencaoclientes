@@ -32,37 +32,138 @@
     <tbody>
         @foreach (var item in Model)
         {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    <a asp-action="Services" asp-route-id="@item.Uid" type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-wrench"></span> Serviços
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Uid" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-eye-open"></span> Visualizar
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Uid" type="button" class="btn btn-info">
+                        <span class="glyphicon glyphicon-pencil"></span> Editar
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Uid" type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Apagar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h1>Próximas Manutenções</h1>
+<table class="table alert-success">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                <a asp-action="Services" asp-route-id="@item.Uid" type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-wrench"></span> Serviços
-                </a>
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Uid" type="button" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-eye-open"></span> Visualizar
-                </a>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Uid" type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-pencil"></span> Editar
-                </a>
-            </td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.Uid" type="button" class="btn btn-danger">
-                    <span class="glyphicon glyphicon-trash"></span> Apagar
-                </a>
-            </td>
+            <th>
+                Descrição
+            </th>
+            <th>
+                Criação
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Próxima Manutenção
+            </th>
+            <th>
+                Próxima Limpeza
+            </th>
+            <th></th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (List<Servico>)ViewBag.Manutencao)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @item.DataCriacao.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @item.DataProximaManutencao.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @item.DataProximaLimpeza.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a asp-action="DetailsServico" asp-route-clienteUid="@item.ClienteId" asp-route-id="@item.Uid" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-eye-open"></span> Visualizar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<h1>Próximas Limpezas</h1>
+<table class="table alert-primary">
+    <thead>
+        <tr>
+            <th>
+                Descrição
+            </th>
+            <th>
+                Criação
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Próxima Manutenção
+            </th>
+            <th>
+                Próxima Limpeza
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (List<Servico>)ViewBag.Limpeza)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @item.DataCriacao.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @item.DataProximaManutencao.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @item.DataProximaLimpeza.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a asp-action="DetailsServico" asp-route-clienteUid="@item.ClienteId" asp-route-id="@item.Uid" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-eye-open"></span> Visualizar
+                    </a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

@@ -1,5 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 using System;
+using System.Collections.Generic;
 
 namespace RefriSilva.Models
 {
@@ -17,7 +18,7 @@ namespace RefriSilva.Models
         [FirestoreProperty]
         public string Nome { get; set; }
         [FirestoreProperty]
-        public string Email{ get; set; }
+        public string Email { get; set; }
         [FirestoreProperty]
         public string Telefone { get; set; }
         [FirestoreProperty]
@@ -30,5 +31,7 @@ namespace RefriSilva.Models
         public string Complemento { get; set; }
         [FirestoreProperty]
         public DateTime DataCriacao { get; private set; }
+        [FirestoreProperty]
+        public List<Servico> Servicos { get; set; }
     }
 }

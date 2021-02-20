@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RefriSilva.Data;
-using RefriSilva.Data.Imp;
+using RefriSilva.Data.Interface;
 using RefriSilva.Models;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace RefriSilva.Controllers
 {
@@ -16,15 +14,33 @@ namespace RefriSilva.Controllers
     public class HomeController : Controller
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly IServicoRepository _servicoRepository;
 
-        public HomeController(IClienteRepository clienteRepository)
+        public HomeController(IClienteRepository clienteRepository, IServicoRepository servicoRepository)
         {
             _clienteRepository = clienteRepository;
+            _servicoRepository = servicoRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _clienteRepository.Get());
+            var clientes = await _clienteRepository.Get();
+            await BuscarProximasLimpezasEManutencoes(clientes);
+
+            return View(clientes);
+        }
+
+        private async Task BuscarProximasLimpezasEManutencoes(IEnumerable<Cliente> clientes)
+        {
+            var listaDeServicos = new List<Servico>();
+
+            foreach (var item in clientes)
+                listaDeServicos.AddRange(await _servicoRepository.Get(item.Uid));
+
+            var ontem = DateTime.Now.AddDays(-1);
+
+            ViewBag.Limpeza = listaDeServicos.Where(c=> c.DataProximaLimpeza >= ontem).OrderBy(c => c.DataProximaLimpeza).Take(5).ToList();
+            ViewBag.Manutencao = listaDeServicos.Where(c => c.DataProximaLimpeza >= ontem).OrderBy(c => c.DataProximaManutencao).Take(5).ToList();
         }
 
         public async Task<IActionResult> Details(string id)
@@ -147,6 +163,10 @@ namespace RefriSilva.Controllers
         private async Task<bool> ClienteExists(string id)
         {
             return await _clienteRepository.GetById(id) != null;
+        }
+        public async Task<IActionResult> DetailsServico(string clienteUid, string id)
+        {
+            return RedirectToAction("Details","Servico", new { clienteUid = clienteUid, id  = id });
         }
     }
 }

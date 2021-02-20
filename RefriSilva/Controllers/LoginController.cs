@@ -53,15 +53,18 @@ namespace RefriSilva.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
             }
+            else
+            {
+                TempData["Erro"] = "erro";
+            }
 
             return RedirectToAction("index", "home");
         }
 
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

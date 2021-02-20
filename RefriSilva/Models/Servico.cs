@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Google.Cloud.Firestore;
+using System;
 using System.ComponentModel.DataAnnotations;
-using Google.Cloud.Firestore;
 
 namespace RefriSilva.Models
 {
@@ -14,7 +14,6 @@ namespace RefriSilva.Models
         }
 
         [FirestoreDocumentId]
-        [Key]
         public string Uid { get; set; }
         [FirestoreProperty]
         public string Descricao { get; set; }

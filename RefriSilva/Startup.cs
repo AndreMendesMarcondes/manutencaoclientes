@@ -9,8 +9,6 @@ using RefriSilva.Data.Interface;
 using System;
 using System.IO;
 using System.Net;
-using Microsoft.EntityFrameworkCore;
-using RefriSilva.Data;
 
 namespace RefriSilva
 {
@@ -33,7 +31,8 @@ namespace RefriSilva
            });
 
             services.AddDistributedMemoryCache();
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromDays(10);//You can set Time   
             });
 
@@ -47,9 +46,6 @@ namespace RefriSilva
             services.AddScoped<IServicoRepository, ServicoRepository>();
 
             EnableCors(services);
-
-            services.AddDbContext<RefriSilvaContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("RefriSilvaContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

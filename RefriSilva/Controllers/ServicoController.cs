@@ -1,17 +1,16 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RefriSilva.Data.Imp;
+using RefriSilva.Data.Interface;
 using RefriSilva.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace RefriSilva.Controllers
 {
     [Authorize]
     public class ServicoController : Controller
     {
-        const string SessionClienteId = "_ClienteId";
         private readonly IServicoRepository _servicoRepository;
         private readonly IClienteRepository _clienteRepository;
 
