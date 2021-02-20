@@ -41,7 +41,9 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-route-clienteUid="@Model.ClienteId">Back to List</a>
+    <a asp-action="Index" asp-route-clienteUid="@Model.ClienteId" type="button" class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+    </a>
 </div>
 
 @section Scripts {

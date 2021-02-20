@@ -40,7 +40,7 @@ namespace RefriSilva.Controllers
             var ontem = DateTime.Now.AddDays(-1);
 
             ViewBag.Limpeza = listaDeServicos.Where(c=> c.DataProximaLimpeza >= ontem).OrderBy(c => c.DataProximaLimpeza).Take(5).ToList();
-            ViewBag.Manutencao = listaDeServicos.Where(c => c.DataProximaLimpeza >= ontem).OrderBy(c => c.DataProximaManutencao).Take(5).ToList();
+            ViewBag.Manutencao = listaDeServicos.Where(c => c.DataProximaManutencao >= ontem).OrderBy(c => c.DataProximaManutencao).Take(5).ToList();
         }
 
         public async Task<IActionResult> Details(string id)
